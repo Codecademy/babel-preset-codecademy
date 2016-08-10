@@ -1,9 +1,10 @@
 module.exports = {
   presets: [
-    require('babel-preset-es2015'),
+    require('babel-preset-stage-0'),
     require('babel-preset-react'),
-    require('babel-preset-stage-0')
+    require('babel-preset-es2015')
   ],
+  passPerPreset: true,
   plugins: [
     require('babel-plugin-transform-decorators-legacy').default,
     require('babel-plugin-transform-es2015-template-literals'),
