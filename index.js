@@ -2,7 +2,7 @@ module.exports = {
   presets: [
     require('babel-preset-env').default(null, {
       debug: false,
-      modules: false,
+      modules: 'commonjs',
       targets: {
         android: 30,
         chrome: 35,
