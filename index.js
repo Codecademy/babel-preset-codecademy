@@ -1,17 +1,9 @@
 module.exports = {
   presets: [
-    require('babel-preset-env').default(null, {
+    [require('babel-preset-env').default, {
       debug: false,
-      modules: 'commonjs',
-      targets: {
-        android: 30,
-        chrome: 35,
-        edge: 14,
-        explorer: 11,
-        firefox: 52,
-        safari: 9
-      }
-    }),
+      modules: false,
+    }],
     require('babel-preset-stage-0'),
     require('babel-preset-react')
   ],
