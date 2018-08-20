@@ -3,7 +3,7 @@ const isEnvTest = env === "test";
 const isEnvProduction = env === "production";
 const isEnvDevelopment = !isEnvTest && !isEnvProduction;
 
-module.exports = {
+module.exports = () => ({
   presets: [
     isEnvTest && [
       require("@babel/preset-env").default,
@@ -60,4 +60,4 @@ module.exports = {
       // Transform dynamic import to require
       require("babel-plugin-transform-dynamic-import").default
   ].filter(Boolean)
-};
+});
