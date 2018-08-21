@@ -20,7 +20,8 @@ module.exports = () => ({
         modules: false
       }
     ],
-    require("@babel/preset-react").default
+    require("@babel/preset-react").default,
+    require("@babel/preset-flow").default
   ].filter(Boolean),
   plugins: [
     require("@babel/plugin-transform-destructuring").default,
@@ -36,15 +37,15 @@ module.exports = () => ({
         useBuiltIns: true
       }
     ],
-    require("@babel/plugin-proposal-decorators"),
+    [require("@babel/plugin-proposal-decorators"), { legacy: true }],
     require("@babel/plugin-proposal-export-default-from"),
     require("@babel/plugin-proposal-export-namespace-from"),
+    require("@babel/plugin-proposal-do-expressions"),
     require("@babel/plugin-syntax-import-meta"),
     [
       require("@babel/plugin-transform-runtime").default,
       {
         helpers: false,
-        polyfill: false,
         regenerator: true
       }
     ],
