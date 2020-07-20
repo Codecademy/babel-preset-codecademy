@@ -16,7 +16,26 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: yarn install --frozen-lockfile --no-progress
-      - uses: JS-DevTools/npm-publish@v1
+      - name: Install yarn packages
+        run: yarn install --frozen-lockfile --no-progress
+      - name: Update Version & Generate Changelog
+        uses: TriPSs/conventional-changelog-action@v3
         with:
-          token: ${{ secrets.NPM_TOKEN }}
+          github-token: ${{ secrets.github_token }}
+          git-message: 'chore(release): {version}'
+          git-user-name: 'Codecademy'
+          git-user-email: 'dev@codecademy.com'
+      - name: Publish to NPM
+        id: publish 
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}    
+      - name: Create Release
+        uses: actions/create-release@v1
+        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+        env:
+         GITHUB_TOKEN: ${{ secrets.github_token }}
+        with:
+         tag_name: ${{ steps.changelog.outputs.tag }}
+         release_name: ${{ steps.changelog.outputs.tag }}
+         body: ${{ steps.changelog.outputs.clean_changelog }}
