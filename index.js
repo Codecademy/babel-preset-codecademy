@@ -5,10 +5,6 @@ const isEnvTest = env === "test";
 const isEnvProduction = env === "production";
 const isEnvDevelopment = !isEnvTest && !isEnvProduction;
 
-const absoluteRuntimePath = path.dirname(
-  require.resolve("@babel/runtime/package.json")
-);
-
 module.exports = () => ({
   presets: [
     isEnvTest && [
@@ -55,12 +51,8 @@ module.exports = () => ({
       {
         corejs: false,
         regenerator: true,
-        helpers: true,
-        regenerator: true,
+        helpers: false,
         useESModules: isEnvDevelopment || isEnvProduction,
-        // Undocumented: ensures that the correct runtime version is used
-        // https://github.com/babel/babel/blob/090c364a90fe73d36a30707fc612ce037bdbbb24/packages/babel-plugin-transform-runtime/src/index.js#L35-L42
-        absoluteRuntime: absoluteRuntimePath,
       },
     ],
     require("babel-plugin-react-anonymous-display-name").default,
