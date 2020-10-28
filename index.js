@@ -7,21 +7,20 @@ const isEnvDevelopment = !isEnvTest && !isEnvProduction;
 
 const PACKAGE_LIBRARY = "library";
 const PACKAGE_APPLICATION = "application";
+const packageTypes = [PACKAGE_LIBRARY, PACKAGE_APPLICATION];
 
-module.exports = (api, opts) => {
-  const packageType = opts.type || PACKAGE_APPLICATION;
-
-  if (!packageTypes.includes(packageType)) {
+module.exports = (api, { type = PACKAGE_LIBRARY } = {}) => {
+  if (!packageTypes.includes(type)) {
     throw new Error(
       `babel-preset-codecademy: option 'type' should be one of: ${[
         PACKAGE_LIBRARY,
         PACKAGE_APPLICATION,
-      ].join(", ")}, received ${packageType}`
+      ].join(", ")}, received ${type}`
     );
   }
 
   let absoluteRuntimePath = undefined;
-  if (packageType === PACKAGE_APPLICATION) {
+  if (type === PACKAGE_APPLICATION) {
     absoluteRuntimePath = path.dirname(
       require.resolve("@babel/runtime/package.json")
     );
