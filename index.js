@@ -19,7 +19,7 @@ module.exports = (api, { type = PACKAGE_LIBRARY } = {}) => {
     );
   }
 
-  let absoluteRuntimePath = undefined;
+  let absoluteRuntimePath;
   if (type === PACKAGE_APPLICATION) {
     absoluteRuntimePath = path.dirname(
       require.resolve("@babel/runtime/package.json")
