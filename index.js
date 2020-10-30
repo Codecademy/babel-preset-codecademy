@@ -40,32 +40,23 @@ module.exports = (api, { type = PACKAGE_LIBRARY } = {}) => {
         require("@babel/preset-env").default,
         {
           useBuiltIns: "entry",
-          modules: false,
-          corejs: 2,
+          corejs: 3,
+          exclude: ["transform-typeof-symbol"],
         },
       ],
-      require("@babel/preset-react").default,
+      [
+        require("@babel/preset-react").default,
+        {
+          // Adds component stack to warning messages
+          // Adds __self attribute to JSX which React will use for some warnings
+          development: isEnvDevelopment || isEnvTest,
+        },
+      ],
     ].filter(Boolean),
     plugins: [
-      require("@babel/plugin-transform-destructuring").default,
       [require("@babel/plugin-proposal-decorators"), { legacy: true }],
-      [
-        require("@babel/plugin-proposal-class-properties").default,
-        {
-          loose: true,
-        },
-      ],
-      [
-        require("@babel/plugin-proposal-object-rest-spread").default,
-        {
-          useBuiltIns: true,
-        },
-      ],
       require("@babel/plugin-proposal-do-expressions"),
       require("@babel/plugin-proposal-export-default-from"),
-      require("@babel/plugin-proposal-export-namespace-from"),
-      require("@babel/plugin-proposal-nullish-coalescing-operator"),
-      require("@babel/plugin-proposal-optional-chaining"),
       require("@babel/plugin-syntax-import-meta"),
       [
         require("@babel/plugin-transform-runtime").default,
@@ -81,10 +72,21 @@ module.exports = (api, { type = PACKAGE_LIBRARY } = {}) => {
         },
       ],
       require("babel-plugin-react-anonymous-display-name").default,
-      require("@babel/plugin-syntax-dynamic-import").default,
-      isEnvTest &&
-        // Transform dynamic import to require
-        require("babel-plugin-transform-dynamic-import").default,
+      // class { handleClick = () => { } }
+      // Enable loose mode to use assignment instead of defineProperty
+      // See discussion in https://github.com/facebook/create-react-app/issues/4263
+      [
+        require("@babel/plugin-proposal-class-properties").default,
+        {
+          loose: true,
+        },
+      ],
+      // Optional chaining and nullish coalescing are supported in @babel/preset-env,
+      // but not yet supported in webpack due to support missing from acorn.
+      // These can be removed once webpack has support.
+      // See https://github.com/facebook/create-react-app/issues/8445#issuecomment-588512250
+      require("@babel/plugin-proposal-optional-chaining").default,
+      require("@babel/plugin-proposal-nullish-coalescing-operator").default,
     ].filter(Boolean),
   };
 };
