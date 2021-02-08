@@ -21,14 +21,16 @@ jobs:
           git-user-name: 'Codecademy[bot]'
           git-user-email: 'dev@codecademy.com'
           preset: conventionalcommits
+          skip-on-empty: 'false'
       - name: Publish to NPM
         id: publish
+        if: ${{ steps.changelog.outputs.skipped == 'false' }}
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
       - name: Create Release
         uses: actions/create-release@v1
-        if: steps.publish.outputs.type != 'none'
+        if: steps.changelog.outputs.skipped == 'false'
         env:
          GITHUB_TOKEN: ${{ secrets.BOT_GITHUB_TOKEN }}
         with:
@@ -37,7 +39,7 @@ jobs:
          body: ${{ steps.changelog.outputs.clean_changelog }}
       - name: Push changes
         uses: ad-m/github-push-action@master
-        if: steps.publish.outputs.type != 'none'
+        if: steps.changelog.outputs.skipped == 'false'
         with:
           github_token: ${{ secrets.BOT_GITHUB_TOKEN }}
           branch: ${{ github.ref }}
