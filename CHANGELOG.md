@@ -1,3 +1,5 @@
+### [3.0.6](https://github.com/Codecademy/babel-preset-codecademy/compare/v3.0.5...v3.0.6) (2021-02-08)
+
 ### [3.0.5](https://github.com/Codecademy/babel-preset-codecademy/compare/v2.3.0...v3.0.5) (2021-02-08)
 
 
@@ -10,6 +12,4 @@
 ### [2.2.2](https://github.com/Codecademy/babel-preset-codecademy/compare/v2.2.1...v2.2.2) (2019-04-25)
 
 ### [2.2.1](https://github.com/Codecademy/babel-preset-codecademy/compare/v2.2.0...v2.2.1) (2019-04-09)
-
-## [2.2.0](https://github.com/Codecademy/babel-preset-codecademy/compare/v2.0.1...v2.2.0) (2019-04-06)
 
