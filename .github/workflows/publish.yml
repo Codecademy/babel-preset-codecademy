@@ -4,12 +4,13 @@ on:
   push:
     branches:
       - main
-
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.BOT_GITHUB_TOKEN }}
       - uses: bahmutov/npm-install@v1
       - name: Update Version & Generate Changelog
         uses: TriPSs/conventional-changelog-action@v3
