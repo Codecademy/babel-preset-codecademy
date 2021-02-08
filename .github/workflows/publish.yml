@@ -7,6 +7,7 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    if: contains(github.event.pusher.name, "codecademy") != true
     steps:
       - uses: actions/checkout@v2
         with:
@@ -17,10 +18,9 @@ jobs:
         with:
           github-token: ${{ secrets.BOT_GITHUB_TOKEN }}
           git-message: 'chore(release): {version}'
-          git-user-name: 'Codecademy'
+          git-user-name: 'Codecademy[bot]'
           git-user-email: 'dev@codecademy.com'
           preset: conventionalcommits
-          skip-on-empty: false
       - name: Publish to NPM
         id: publish
         uses: JS-DevTools/npm-publish@v1
@@ -37,6 +37,7 @@ jobs:
          body: ${{ steps.changelog.outputs.clean_changelog }}
       - name: Push changes
         uses: ad-m/github-push-action@master
+        if: steps.publish.outputs.type != 'none'
         with:
           github_token: ${{ secrets.BOT_GITHUB_TOKEN }}
           branch: ${{ github.ref }}
