@@ -19,6 +19,7 @@ jobs:
           git-user-name: 'Codecademy'
           git-user-email: 'dev@codecademy.com'
           preset: conventionalcommits
+          skip-on-empty: false
       - name: Publish to NPM
         id: publish
         uses: JS-DevTools/npm-publish@v1
