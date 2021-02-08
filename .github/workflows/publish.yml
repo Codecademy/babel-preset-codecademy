@@ -7,7 +7,7 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    if: contains(github.event.pusher.name, "codecademy") != true
+    if: contains(github.event.pusher.name, "codecademy") == 'false'
     steps:
       - uses: actions/checkout@v2
         with:
