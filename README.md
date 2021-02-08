@@ -1,3 +1,5 @@
+![npm](https://img.shields.io/npm/v/babel-preset-codecademy)
+
 # babel-preset-codecademy
 
 > A collection of babel plugins and presets used at codecademy

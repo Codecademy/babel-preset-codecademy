@@ -22,7 +22,6 @@ jobs:
           git-user-name: 'Codecademy[bot]'
           git-user-email: 'dev@codecademy.com'
           preset: conventionalcommits
-          skip-on-empty: 'false'
       - name: Publish to NPM
         id: publish
         if: ${{ steps.changelog.outputs.skipped == 'false' }}
