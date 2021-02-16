@@ -1,3 +1,5 @@
+# 👋 We moved this to https://github.com/Codecademy/client-modules
+
 ![npm](https://img.shields.io/npm/v/babel-preset-codecademy)
 
 # babel-preset-codecademy
